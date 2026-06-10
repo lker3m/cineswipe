@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CineSwipe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span>Cine</span>Swipe
+        </div>
+        <div class="nav-actions">
+            <button id="toggle-filter" class="icon-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+            </button>
+            <button id="toggle-sidebar" class="icon-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <div id="filter-panel" class="glass-panel hidden">
+        <div class="filter-group">
+            <label for="genre-select">Tür</label>
+            <select id="genre-select">
+                <option value="">Tümü</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="min-rating">Min IMDb Puanı (<span id="rating-val">5</span>)</label>
+            <input type="range" id="min-rating" min="0" max="10" step="0.5" value="5">
+        </div>
+        <div class="filter-group">
+            <label for="year-min">Yıl Aralığı</label>
+            <div class="year-inputs">
+                <input type="number" id="year-min" placeholder="1990" value="2000">
+                <input type="number" id="year-max" placeholder="2026" value="2026">
+            </div>
+        </div>
+        <button id="apply-filters" class="neon-btn cyan">Uygula</button>
+    </div>
+
+    <aside id="sidebar" class="glass-panel hidden">
+        <div class="sidebar-header">
+            <h3>Hafıza</h3>
+            <button id="close-sidebar" class="icon-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" data-target="watchlist">İzleme Listem</button>
+            <button class="tab-btn" data-target="rated">Puanlarım</button>
+            <button class="tab-btn" data-target="dislikes">Çöpe Atılanlar</button>
+        </div>
+        <div class="tab-content active" id="tab-watchlist"></div>
+        <div class="tab-content" id="tab-rated"></div>
+        <div class="tab-content" id="tab-dislikes"></div>
+    </aside>
+
+    <main id="main-container">
+        <div id="card-stack"></div>
+        <div class="controls">
+            <button id="btn-dislike" class="control-btn dislike">
+                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <button id="btn-info" class="control-btn info">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            </button>
+            <button id="btn-rate" class="control-btn rate">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="17 11 12 6 7 11"></polyline><line x1="12" y1="18" x2="12" y2="6"></line></svg>
+            </button>
+            <button id="btn-like" class="control-btn like">
+                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+        </div>
+    </main>
+
+    <div id="rate-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <h2 id="rate-title"></h2>
+            <p>Bu filmi nasıl bulmuştun?</p>
+            <div class="stars">
+                <span data-val="1">★</span>
+                <span data-val="2">★</span>
+                <span data-val="3">★</span>
+                <span data-val="4">★</span>
+                <span data-val="5">★</span>
+            </div>
+            <button id="submit-rate" class="neon-btn pink">Kaydet</button>
+        </div>
+    </div>
+
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content glass-panel large">
+            <button id="close-info" class="icon-btn absolute-top-right">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div id="info-body"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
